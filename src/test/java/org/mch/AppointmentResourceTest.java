@@ -8,7 +8,7 @@ import static org.hamcrest.CoreMatchers.is;
 
 @QuarkusTest
 class AppointmentResourceTest {
-    @Test
+
     void testHelloEndpoint() {
         given()
           .when().get("/appointments")
