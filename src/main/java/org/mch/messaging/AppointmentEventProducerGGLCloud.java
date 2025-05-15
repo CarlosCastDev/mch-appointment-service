@@ -1,6 +1,7 @@
 package org.mch.messaging;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.api.core.ApiFuture;
 import com.google.protobuf.ByteString;
 import com.google.pubsub.v1.ProjectTopicName;
 import com.google.pubsub.v1.PubsubMessage;
@@ -50,8 +51,9 @@ public class AppointmentEventProducerGGLCloud implements AppointmentEventProduce
             ByteString data = ByteString.copyFromUtf8(json);
             PubsubMessage message = PubsubMessage.newBuilder().setData(data).build();
 
-            publisher.publish(message);
-            log.info("Mensaje appointment enviado a Pub/Sub: {}", json);
+            ApiFuture<String> messageIdFuture = publisher.publish(message);
+            String messageId = messageIdFuture.get(); // Esto lanza excepción si falla
+            log.info("Mensaje appointment enviado a Pub/Sub con ID: {}", messageId);
 
         } catch (Exception e) {
             log.error("Error al publicar evento en Pub/Sub", e);
