@@ -44,6 +44,8 @@ public class AppointmentEventProducerGGLCloud implements AppointmentEventProduce
     @Override
     public void publishEvent(AppointmentEvent event) {
         try {
+            log.info("Project_id: {}", PROJECT_ID);
+            log.info("topic_id: {}", TOPIC_ID);
             String json = objectMapper.writeValueAsString(event);
             ByteString data = ByteString.copyFromUtf8(json);
             PubsubMessage message = PubsubMessage.newBuilder().setData(data).build();
