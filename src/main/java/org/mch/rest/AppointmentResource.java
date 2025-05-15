@@ -7,6 +7,7 @@ import jakarta.ws.rs.core.*;
 import org.mch.dto.AppointmentEvent;
 import org.mch.entity.Appointment;
 import org.mch.messaging.AppointmentEventProducer;
+import org.mch.qualifiers.GCloudProducer;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ import java.util.List;
 public class AppointmentResource {
 
     @Inject
+    @GCloudProducer
     AppointmentEventProducer eventProducer;
 
     @GET
